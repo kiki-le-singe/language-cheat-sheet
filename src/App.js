@@ -1,9 +1,11 @@
+import React, { PureComponent } from 'react'
 import { StackNavigator, TabNavigator } from 'react-navigation'
+import { Provider } from 'react-redux'
 
 import IrregularVerbDetailScreen from './Screens/IrregularVerbDetailScreen'
 import SheetCheatScreen from './Screens/SheetCheatScreen'
 import IrregularVerbsScreen from './Screens/IrregularVerbsScreen'
-
+import configureStore from './redux/store'
 import colors from './styles/colors'
 
 const { blue, white } = colors
@@ -37,9 +39,21 @@ LanguageCheatSheetTabNavigator.navigationOptions = {
   title: 'Language Cheat Sheet',
 }
 
-export default StackNavigator(
+const AppNavigator = StackNavigator(
   {
     Home: { screen: LanguageCheatSheetTabNavigator },
     IrregularVerbDetail: { screen: IrregularVerbDetailScreen },
   },
 )
+
+const store = configureStore()
+
+export default class App extends PureComponent {
+  render() {
+    return (
+      <Provider store={store}>
+        <AppNavigator />
+      </Provider>
+    )
+  }
+}
