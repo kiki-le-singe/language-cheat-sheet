@@ -57,7 +57,6 @@ export class IrregularVerbsScreen extends PureComponent {
 
   render() {
     const { navigation, irregularVerbs } = this.props
-    const { navigate } = navigation
 
     if (!irregularVerbs.length) {
       return null
@@ -65,14 +64,7 @@ export class IrregularVerbsScreen extends PureComponent {
 
     return (
       <View>
-        <Text>List of Irregular Verbs</Text>
-
-        <IrregularVerbs data={irregularVerbs} />
-
-        <Button
-          onPress={() => navigate('IrregularVerbDetail', { verb: 'Can' })}
-          title="Go to Irregular Verbs Detail Screen"
-        />
+        <IrregularVerbs data={irregularVerbs} navigation={navigation} />
       </View>
     )
   }
