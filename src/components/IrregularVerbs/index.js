@@ -5,9 +5,13 @@ import {
   Text,
 } from 'react-native'
 
+import Row from './components/Row'
+import styles from './styles'
+
 export default class IrregularVerbs extends PureComponent {
 
   static propTypes = {
+    navigation: PropTypes.object.isRequired,
     data: PropTypes.array.isRequired,
   }
 
@@ -22,24 +26,43 @@ export default class IrregularVerbs extends PureComponent {
     }
   }
 
-  renderRow = (rowData) => {
-    const { baseForm, pastSimple, pastParticiple } = rowData
+  navigateToDetailScreen = (verb) => {
+    const { navigation } = this.props
+    const { navigate } = navigation
 
-    return (
-      <View>
-        <Text>{baseForm}</Text>
-        <Text>{pastSimple}</Text>
-        <Text>{pastParticiple}</Text>
-      </View>
-    )
+    navigate('IrregularVerbDetail', { verb })
   }
+
+  renderRow = rowData => (
+    <Row data={rowData} onPress={this.navigateToDetailScreen} />
+  )
+
+  renderSeparator = (sectionID, rowID) => (
+    <View
+      key={`${sectionID}-${rowID}`}
+      style={styles.separator}
+    />
+  )
+
+  renderHeader = () => (
+    <View style={styles.header}>
+      <Text style={styles.headerText}>Base Form</Text>
+      <Text style={styles.headerText}>Past Simple</Text>
+      <Text style={styles.headerText}>Past Participle</Text>
+    </View>
+  )
 
   render() {
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderRow}
-      />
+      <View style={styles.container}>
+        {this.renderHeader()}
+
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderRow}
+          renderSeparator={this.renderSeparator}
+        />
+      </View>
     )
   }
 }
