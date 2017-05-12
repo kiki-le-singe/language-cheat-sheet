@@ -7,7 +7,7 @@ import {
 
 export default class IrregularVerbDetailScreen extends React.PureComponent {
   static navigationOptions = ({ navigation }) => ({
-    title: `Irregular Verb - ${navigation.state.params.verb}`,
+    title: navigation.state.params.verb.baseForm,
   })
 
   static propTypes = {
@@ -16,11 +16,13 @@ export default class IrregularVerbDetailScreen extends React.PureComponent {
 
   render() {
     const { goBack, state } = this.props.navigation
-    const { verb } = state.params
+    const { pastSimple, pastParticiple, translation } = state.params.verb
 
     return (
       <View>
-        <Text>Detail of Irregular Verb `{verb}`</Text>
+        <Text>{pastSimple}</Text>
+        <Text>{pastParticiple}</Text>
+        <Text>{translation}</Text>
         <Button
           onPress={() => goBack()}
           title="Go back IrregularVerbs screen"
