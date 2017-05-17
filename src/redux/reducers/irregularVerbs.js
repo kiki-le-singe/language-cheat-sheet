@@ -1,6 +1,8 @@
 import { FETCH_IRREGULAR_VERBS } from '../actions/IrregularVerbsActions'
 
-const initialState = []
+const initialState = {
+  verbs: [],
+}
 
 const irregularVerbs = (state = initialState, action) => {
   const { payload, type } = action
@@ -9,7 +11,10 @@ const irregularVerbs = (state = initialState, action) => {
     case FETCH_IRREGULAR_VERBS: {
       const { data } = payload
 
-      return data
+      return {
+        ...state,
+        verbs: data,
+      }
     }
 
     default:

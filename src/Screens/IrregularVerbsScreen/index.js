@@ -48,7 +48,7 @@ export class IrregularVerbsScreen extends PureComponent {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     fetch: PropTypes.func.isRequired,
-    irregularVerbs: PropTypes.array.isRequired,
+    irregularVerbs: PropTypes.object.isRequired,
   }
 
   componentWillMount() {
@@ -57,14 +57,15 @@ export class IrregularVerbsScreen extends PureComponent {
 
   render() {
     const { navigation, irregularVerbs } = this.props
+    const { verbs } = irregularVerbs
 
-    if (!irregularVerbs.length) {
+    if (!verbs.length) {
       return null
     }
 
     return (
       <View>
-        <IrregularVerbs data={irregularVerbs} navigation={navigation} />
+        <IrregularVerbs data={verbs} navigation={navigation} />
       </View>
     )
   }
