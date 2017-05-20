@@ -30,9 +30,11 @@ export class IrregularVerbsScreen extends PureComponent {
   static navigationOptions = ({ navigation }) => {
     const { state, setParams } = navigation
     const isSearch = state.params && state.params.mode === 'search'
+    const tabBarVisible = state.params && state.params.tabBarVisible
     const headerTitleComponent = isSearch ? <Search /> : <Foo />
 
     return {
+      tabBarVisible,
       tabBarLabel: 'Irregular Verbs',
       // headerLeft: <Button title="LeftBtn" />,
       headerTitle: headerTitleComponent,
@@ -55,6 +57,20 @@ export class IrregularVerbsScreen extends PureComponent {
     this.props.fetch()
   }
 
+  hideTabBar = () => {
+    this.toggleTabBar(false)
+  }
+
+  showTabBar = () => {
+    this.toggleTabBar()
+  }
+
+  toggleTabBar = (visible = true) => {
+    const { setParams } = this.props.navigation
+
+    setParams({ tabBarVisible: visible })
+  }
+
   render() {
     const { navigation, irregularVerbs } = this.props
     const { verbs } = irregularVerbs
@@ -65,7 +81,12 @@ export class IrregularVerbsScreen extends PureComponent {
 
     return (
       <View>
-        <IrregularVerbs data={verbs} navigation={navigation} />
+        <IrregularVerbs
+          data={verbs}
+          navigation={navigation}
+          hideTabBar={this.hideTabBar}
+          showTabBar={this.showTabBar}
+        />
       </View>
     )
   }
