@@ -7,7 +7,7 @@ const { white, grey, blue } = colors
 
 export default StyleSheet.create({
   container: {
-    marginBottom: 30,
+    paddingBottom: 40,
   },
   rowContainer: {
     backgroundColor: white,
